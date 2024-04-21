@@ -4,7 +4,13 @@ import { db, Blog } from "astro:db";
 export const GET: APIRoute = async ({ params, request }) => {
   try {
     const blogs = await db.select().from(Blog);
-    return new Response(JSON.stringify(blogs), { status: 200 });
+    // return new Response(JSON.stringify(blogs), { status: 200 });
+    return new Promise((resolve) => {
+      setTimeout(
+        () => resolve(new Response(JSON.stringify(blogs), { status: 200 })),
+        3000,
+      );
+    });
   } catch (error) {
     return new Response(
       JSON.stringify({
